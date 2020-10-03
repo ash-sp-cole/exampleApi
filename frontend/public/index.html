@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+  <style>
+    body {
+      background-color: powderblue;
+    }
+    #main {
+      margin-top: 20%;
+    }
+  </style>
+
+
+
+
+</head>
+
+
+
+<!-- 
+MAIN BODY OF THE INDEX HTML - Using Bootstrap for style ---------------------------------------------------------------------------- -->
+
+
+<body>
+
+  <div class="jumbotron" id="main">
+    <h1 class="display-4">Hello, weather search</h1>
+    <p class="lead">Please enter the city you wish to view weather for</p>
+    <form id="form" onsubmit="handleFormSubmit(event)">
+      <input type="text" name="data" id="city">
+      <button type="submit">Submit</button>
+      <h1 id="data"> </h1>
+    </form>
+    </form>
+  </div>
+
+</body>
+
+
+
+
+
+
+<!-- 
+SCRIPT TO HANDLE ONCLICK EVENT OF FORM AND CALL THE !!!! FETCH !!!!! TO OUT  "LOCAL" API  ---------------------------------------------------------------------------- -->
+
+
+
+
+<script>
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    var citySearch = document.getElementById("city");
+    console.log(citySearch.value);
+    let formInput = citySearch.value;
+
+    getAnalyisis(formInput);
+
+
+  }
+
+  function getAnalyisis(dataInput) {
+
+    let city = dataInput
+
+
+    // LOCAL API CALL
+
+    var apiUrl = 'http://localhost:3000/api' + city;
+    fetch(apiUrl, { mode: 'cors' }).then(response => {
+      return response.json();
+    }).then(data => {
+      // Work with JSON data here
+      console.log(data);
+      appendText(data.name);
+
+    }).catch(err => {
+      // Do something for an error here
+    });
+
+
+  }
+</script>
+
+
+</html>
